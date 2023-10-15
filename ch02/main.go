@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"jvm-by-head-go/ch02/classspath"
+	"strings"
+)
 
 func main() {
 	cmd := parseCmd()
@@ -14,5 +18,16 @@ func main() {
 }
 
 func startJVM(cmd *Cmd) {
-	fmt.Printf("classpath:%s class:%s args:%v\n", cmd.cpOption, cmd.class, cmd.args)
+	cp := classspath.Parse(cmd.XjreOption, cmd.cpOption)
+	// 打印命令行参数
+	fmt.Printf("claspath: %v class: %v args:%v\n", cp, cmd.class, cmd.args)
+	// 读取主类数据
+	className := strings.Replace(cmd.class, ".", "/", -1)
+	classData, _, err := cp.ReadClass(className)
+	// 将数据打印到控制台
+	if err != nil {
+		fmt.Printf("Could not find or load main class %s\n", cmd.class)
+		return
+	}
+	fmt.Printf("class data:%v\n", classData)
 }

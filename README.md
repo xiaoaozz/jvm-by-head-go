@@ -15,9 +15,6 @@ jvm-by-head-go
     │      main.go
     │
     └─ch02 寻找classpath文件
-        │  cmd.go
-        │  main.go
-        │
         └─classspath 
                 classpath.go
                 entry.go 组合模式实现 

@@ -41,7 +41,7 @@ func (self *ClassFile) read(reader *ClassReader) {
 	self.accessFlags = reader.readUint16()
 	self.thisClass = reader.readUint16()
 	self.superClass = reader.readUint16()
-	self.interClass = reader.readUint16s()
+	self.interfaces = reader.readUint16s()
 	self.fields = readMembers(reader, self.constantPool)
 	self.methods = readMembers(reader, self.constantPool)
 	self.attributes = readAttributes(reader, self.constantPool)
@@ -99,8 +99,8 @@ func (self *ClassFile) ClassName() string {
 	return self.constantPool.getClassName(self.thisClass)
 }
 
-//
-func (self *ClassFile) superClassName() string {
+// SuperClassName 从常量池查找超类名
+func (self *ClassFile) SuperClassName() string {
 	if self.superClass > 0 {
 		return self.constantPool.getClassName(self.superClass)
 	}
@@ -110,7 +110,7 @@ func (self *ClassFile) superClassName() string {
 
 // InterfaceNames 从常量池查找接口名
 func (self *ClassFile) InterfaceNames() []string {
-	interfaceNames := make([]string, len(self.interClass))
+	interfaceNames := make([]string, len(self.interfaces))
 	for i, cpIndex := range self.interfaces {
 		interfaceNames[i] = self.constantPool.getClassName(cpIndex)
 	}

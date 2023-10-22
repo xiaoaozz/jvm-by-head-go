@@ -6,22 +6,49 @@
 手写JVM的Go语言版本，代码参照张秀宏老师的《自己动手写Java虚拟机》一书，并且会加上自己的思考，对代码结构进行一定的优化。
 ### 组织架构
 
-```
+```               
 jvm-by-head-go
-    │  go.mod  依赖包管理 
+    │  go.mod 依赖包管理 
     │  README.md 项目描述
     ├─ch01 简单的命令行工具
     │      cmd.go
     │      main.go
     │
-    └─ch02 寻找classpath文件
-        └─classspath 
-                classpath.go
-                entry.go 组合模式实现 
-                entry_composite.go
-                entry_dir.go
-                entry_wildcard.go
-                entry_zip.go
+    ├─ch02
+    │  └─classspath 寻找classpath文件
+    │          classpath.go
+    │          entry.go 组合模式实现 
+    │          entry_composite.go
+    │          entry_dir.go
+    │          entry_wildcard.go
+    │          entry_zip.go
+    │
+    └─ch03
+        └─classfile 解析class文件 
+              attribute_info.go  attr属性相关定义
+              attr_code.go
+              attr_constant_value.go
+              attr_exceptions.go
+              attr_line_number_table.go
+              attr_local_variable_table.go
+              attr_markers.go
+              attr_source_file.go
+              attr_unparsed.go
+              class_file.go class文件读取相关定义
+              class_reader.go
+              constant_info.go constant常量池相关定义
+              constant_pool.go
+              cp_class.go 
+              cp_invoke_dynamic.go
+              cp_member_ref.go
+              cp_name_and_type.go
+              cp_numberic.go
+              cp_string.go
+              cp_utf8.go
+              member_info.go
+
+
+
 ```
 
 ### 功能架构
@@ -39,6 +66,7 @@ jvm-by-head-go
 - 2023-10-14 命令行工具开发完成（简易版），测试通过
 - 2023-10-15 搜索class文件模块完成，并使用组合模式优化，测试通过
 - 2023-10-21 class文件结构定义、常量池结构定义完成
+- 2023-10-22 class文件解析开发完成，测试通过
 
 ### 知识架构
 

@@ -25,12 +25,13 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 		accessFlags:     reader.readUint16(),
 		nameIndex:       reader.readUint16(),
 		descriptorIndex: reader.readUint16(),
-		attributes:      reader.readAttributes(reader, cp),
+		attributes:      readAttributes(reader, cp),
 	}
 }
 
+// AccessFlags 获取AccessFlags
 func (self *MemberInfo) AccessFlags() uint16 {
-
+	return self.accessFlags
 }
 
 // Name 从常量池查找字段或者方法名

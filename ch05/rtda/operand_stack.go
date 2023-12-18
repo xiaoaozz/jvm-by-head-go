@@ -87,3 +87,15 @@ func (self *OperandStack) PopRef() *Object {
 	self.slots[self.size].ref = nil
 	return ref
 }
+
+// PushSlot 栈指令处理
+func (self *OperandStack) PushSlot(slot Slot) {
+	self.slots[self.size] = slot
+	self.size++
+}
+
+// PopSlot 栈指令处理
+func (self *OperandStack) PopSlot() Slot {
+	self.size--
+	return self.slots[self.size]
+}

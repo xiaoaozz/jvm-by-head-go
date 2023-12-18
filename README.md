@@ -141,3 +141,26 @@ Java虚拟机提供了一些直接用于操作操作数栈的指令。
     swap
 ```
 
+#### 7.数学指令 
+* 算术指令 
+```java 
+    加法指令：iadd、ladd、fadd、dadd
+    减法指令：isub、lsub、fsub、dsub
+    乘法指令：imul、lmul、fmul、dmul
+    除法指令：idiv、ldiv、fdiv、ddiv
+    求余指令：irem、lrem、frem、drem
+    取反指令：ineg、lneg、fneg、dneg
+```
+* 位移指令
+```java 
+    ishl、ishr、iushr、lshl、lshr、lushr
+```
+* 布尔运算指令
+
+```java 
+    按位或指令：ior、lor
+    按位与指令：iand、land
+    按位异或指令：ixor、lxor
+    比较指令：dcmpg、dcmpl、fcmpg、fcmpl、lcmp
+    局部变量自增指令：innc
+```

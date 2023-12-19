@@ -11,7 +11,7 @@ func (self *ACONST_NULL) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushRef(nil)
 }
 
-// Push double
+// DCONST_0 double
 type DCONST_0 struct{ base.NoOperandsInstruction }
 
 func (self *DCONST_0) Execute(frame *rtda.Frame) {
@@ -24,7 +24,7 @@ func (self *DCONST_1) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushDouble(1.0)
 }
 
-// Push float
+// FCONST_0 float
 type FCONST_0 struct{ base.NoOperandsInstruction }
 
 func (self *FCONST_0) Execute(frame *rtda.Frame) {
@@ -43,7 +43,7 @@ func (self *FCONST_2) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushFloat(2.0)
 }
 
-// Push int constant
+// ICONST_M1 int constant
 type ICONST_M1 struct{ base.NoOperandsInstruction }
 
 func (self *ICONST_M1) Execute(frame *rtda.Frame) {
@@ -86,7 +86,7 @@ func (self *ICONST_5) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushInt(5)
 }
 
-// Push long constant
+// LCONST_0 long
 type LCONST_0 struct{ base.NoOperandsInstruction }
 
 func (self *LCONST_0) Execute(frame *rtda.Frame) {

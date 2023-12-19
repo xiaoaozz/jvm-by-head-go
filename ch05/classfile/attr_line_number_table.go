@@ -1,6 +1,5 @@
 package classfile
 
-// LineNumberTableAttribute 存放方法的行号信息
 type LineNumberTableAttribute struct {
 	lineNumberTable []*LineNumberTableEntry
 }
@@ -10,7 +9,6 @@ type LineNumberTableEntry struct {
 	lineNumber uint16
 }
 
-// readInfo 读取属性索引
 func (self *LineNumberTableAttribute) readInfo(reader *ClassReader) {
 	lineNumberTableLength := reader.readUint16()
 	self.lineNumberTable = make([]*LineNumberTableEntry, lineNumberTableLength)
@@ -20,4 +18,14 @@ func (self *LineNumberTableAttribute) readInfo(reader *ClassReader) {
 			lineNumber: reader.readUint16(),
 		}
 	}
+}
+
+func (self *LineNumberTableAttribute) GetLineNumber(pc int) int {
+	for i := len(self.lineNumberTable) - 1; i >= 0; i-- {
+		entry := self.lineNumberTable[i]
+		if pc >= int(entry.startPc) {
+			return int(entry.lineNumber)
+		}
+	}
+	return -1
 }

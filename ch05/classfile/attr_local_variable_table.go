@@ -1,6 +1,5 @@
 package classfile
 
-// LocalVariableTableAttribute 存放方法的局部变量信息
 type LocalVariableTableAttribute struct {
 	localVariableTable []*LocalVariableTableEntry
 }

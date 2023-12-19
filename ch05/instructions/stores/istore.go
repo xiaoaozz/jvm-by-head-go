@@ -5,7 +5,6 @@ import (
 	"jvm-by-head-go/ch05/rtda"
 )
 
-// ISTORE 存储int数据类型的指令
 type ISTORE struct{ base.Index8Instruction }
 
 func (self *ISTORE) Execute(frame *rtda.Frame) {

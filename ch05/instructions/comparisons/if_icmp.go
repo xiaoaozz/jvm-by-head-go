@@ -5,12 +5,6 @@ import (
 	"jvm-by-head-go/ch05/rtda"
 )
 
-/**
-if_icmp<cond>：
-	if_icmp<cond>指令把栈顶的两个int变量弹出，然后进行比较，满足条件则跳转。
-	跳转条件和if<cond>指令类似
-*/
-
 type IF_ICMPEQ struct{ base.BranchInstruction }
 
 func (self *IF_ICMPEQ) Execute(frame *rtda.Frame) {

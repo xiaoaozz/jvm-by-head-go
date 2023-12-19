@@ -1,8 +1,8 @@
 package conversions
 
 import (
-	"jvm-by-head-go/ch04/rtda"
 	"jvm-by-head-go/ch05/instructions/base"
+	"jvm-by-head-go/ch05/rtda"
 )
 
 // L2D long to double

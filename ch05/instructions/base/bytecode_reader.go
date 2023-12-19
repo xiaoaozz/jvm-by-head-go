@@ -16,6 +16,10 @@ func (self *BytecodeReader) Reset(code []byte, pc int) {
 	self.pc = pc
 }
 
+func (self *BytecodeReader) PC() int {
+	return self.pc
+}
+
 // ReadUint8 读取一个字节的数据
 func (self *BytecodeReader) ReadUint8() uint8 {
 	i := self.code[self.pc]

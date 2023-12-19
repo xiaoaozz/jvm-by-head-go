@@ -10,7 +10,7 @@ type Frame struct {
 }
 
 // NewFrame 构造函数
-func NewFrame(thread *Thread, maxLocals, maxStack uint) *Frame {
+func newFrame(thread *Thread, maxLocals, maxStack uint) *Frame {
 	return &Frame{
 		thread:       thread,
 		localVars:    newLocalVars(maxLocals),

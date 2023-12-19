@@ -10,7 +10,6 @@ type GOTO_W struct {
 }
 
 func (self *GOTO_W) FetchOperands(reader *base.BytecodeReader) {
-	// goto_w指令和goto指令的唯一区别就是索引从2字节变成了4字节
 	self.offset = int(reader.ReadInt32())
 }
 func (self *GOTO_W) Execute(frame *rtda.Frame) {

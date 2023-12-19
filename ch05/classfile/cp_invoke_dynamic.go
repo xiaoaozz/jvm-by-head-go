@@ -1,6 +1,5 @@
 package classfile
 
-// ConstantMethodHandleInfo 常量
 type ConstantMethodHandleInfo struct {
 	referenceKind  uint8
 	referenceIndex uint16
@@ -11,7 +10,6 @@ func (self *ConstantMethodHandleInfo) readInfo(reader *ClassReader) {
 	self.referenceIndex = reader.readUint16()
 }
 
-// ConstantMethodTypeInfo 常量
 type ConstantMethodTypeInfo struct {
 	descriptorIndex uint16
 }
@@ -20,7 +18,6 @@ func (self *ConstantMethodTypeInfo) readInfo(reader *ClassReader) {
 	self.descriptorIndex = reader.readUint16()
 }
 
-// ConstantInvokeDynamicInfo 常量
 type ConstantInvokeDynamicInfo struct {
 	bootstrapMethodAttrIndex uint16
 	nameAndTypeIndex         uint16

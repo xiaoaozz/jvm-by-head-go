@@ -4,7 +4,6 @@ import (
 	"math"
 )
 
-// OperandStack 操作数栈
 type OperandStack struct {
 	size  uint
 	slots []Slot

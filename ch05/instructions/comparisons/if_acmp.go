@@ -5,11 +5,6 @@ import (
 	"jvm-by-head-go/ch05/rtda"
 )
 
-/**
-if_acmpeq和if_acmpne：
-	这两个指令把栈顶的两个引用弹出，根据引用是否相同进行跳转。
-*/
-
 type IF_ACMPEQ struct{ base.BranchInstruction }
 
 func (self *IF_ACMPEQ) Execute(frame *rtda.Frame) {

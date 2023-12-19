@@ -47,4 +47,20 @@ func (self *BytecodeReader) ReadInt32() int32 {
 	b3 := int32(self.ReadUint8())
 	b4 := int32(self.ReadUint8())
 	return (b1 << 24) | (b2 << 16) | (b3 << 8) | b4
+
+}
+
+// SkipPadding 保证defaultOffset在字节码中的地址是4的倍数
+func (self *BytecodeReader) SkipPadding() {
+	for self.pc%4 != 0 {
+		self.ReadUint8()
+	}
+}
+
+func (self *BytecodeReader) ReadInt32s(n int32) []int32 {
+	ints := make([]int32, n)
+	for i := range ints {
+		ints[i] = self.ReadInt32()
+	}
+	return ints
 }

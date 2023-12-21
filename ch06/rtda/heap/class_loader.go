@@ -86,7 +86,7 @@ func parseClass(data []byte) *Class {
 
 // resolveSuperClass 递归调用LoadClass方法加载class的超类
 func resolveSuperClass(class *Class) {
-	if class.name != "java/lang/Object" {
+	if class.name == "java/lang/Object" {
 		class.superClass = class.loader.LoadClass(class.superClassName)
 	}
 }

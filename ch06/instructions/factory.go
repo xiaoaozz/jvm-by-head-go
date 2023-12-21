@@ -2,16 +2,16 @@ package instructions
 
 import (
 	"fmt"
-	"jvm-by-head-go/ch05/instructions/base"
-	"jvm-by-head-go/ch05/instructions/comparisons"
-	"jvm-by-head-go/ch05/instructions/constants"
-	"jvm-by-head-go/ch05/instructions/control"
-	"jvm-by-head-go/ch05/instructions/conversions"
-	"jvm-by-head-go/ch05/instructions/extended"
-	"jvm-by-head-go/ch05/instructions/loads"
-	"jvm-by-head-go/ch05/instructions/math"
-	"jvm-by-head-go/ch05/instructions/stack"
-	"jvm-by-head-go/ch05/instructions/stores"
+	"jvm-by-head-go/ch06/instructions/base"
+	"jvm-by-head-go/ch06/instructions/comparisons"
+	"jvm-by-head-go/ch06/instructions/constants"
+	"jvm-by-head-go/ch06/instructions/control"
+	"jvm-by-head-go/ch06/instructions/conversions"
+	"jvm-by-head-go/ch06/instructions/extended"
+	"jvm-by-head-go/ch06/instructions/loads"
+	"jvm-by-head-go/ch06/instructions/math"
+	"jvm-by-head-go/ch06/instructions/stack"
+	"jvm-by-head-go/ch06/instructions/stores"
 )
 
 // NoOperandsInstruction singletons
@@ -52,14 +52,14 @@ var (
 	aload_1     = &loads.ALOAD_1{}
 	aload_2     = &loads.ALOAD_2{}
 	aload_3     = &loads.ALOAD_3{}
-	// iaload      = &IALOAD{}
-	// laload      = &LALOAD{}
-	// faload      = &FALOAD{}
-	// daload      = &DALOAD{}
-	// aaload      = &AALOAD{}
-	// baload      = &BALOAD{}
-	// caload      = &CALOAD{}
-	// saload      = &SALOAD{}
+	//iaload      = &IALOAD{}
+	//laload      = &LALOAD{}
+	//faload      = &FALOAD{}
+	//daload      = &DALOAD{}
+	//aaload      = &AALOAD{}
+	//baload      = &BALOAD{}
+	//caload      = &CALOAD{}
+	//saload      = &SALOAD{}
 	istore_0 = &stores.ISTORE_0{}
 	istore_1 = &stores.ISTORE_1{}
 	istore_2 = &stores.ISTORE_2{}
@@ -80,7 +80,7 @@ var (
 	astore_1 = &stores.ASTORE_1{}
 	astore_2 = &stores.ASTORE_2{}
 	astore_3 = &stores.ASTORE_3{}
-	// iastore  = &IASTORE{}
+	//iastore  = &IASTORE{}
 	// lastore  = &LASTORE{}
 	// fastore  = &FASTORE{}
 	// dastore  = &DASTORE{}
@@ -204,12 +204,12 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &constants.BIPUSH{}
 	case 0x11:
 		return &constants.SIPUSH{}
-	// case 0x12:
-	// 	return &LDC{}
-	// case 0x13:
-	// 	return &LDC_W{}
-	// case 0x14:
-	// 	return &LDC2_W{}
+	case 0x12:
+		return &constants.LDC{}
+	case 0x13:
+		return &constants.LDC_W{}
+	case 0x14:
+		return &constants.LDC2_W{}
 	case 0x15:
 		return &loads.ILOAD{}
 	case 0x16:
@@ -570,11 +570,11 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &extended.IFNONNULL{}
 	case 0xc8:
 		return &extended.GOTO_W{}
-	// case 0xc9:
-	// 	return &JSR_W{}
-	// case 0xca: breakpoint
-	// case 0xfe: impdep1
-	// case 0xff: impdep2
+	//case 0xc9:
+	//	return &JSR_W{}
+	//case 0xca: breakpoint
+	//case 0xfe: impdep1
+	//case 0xff: impdep2
 	default:
 		panic(fmt.Errorf("unsupported opcode: 0x%x", opcode))
 	}

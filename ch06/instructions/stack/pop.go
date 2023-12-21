@@ -1,8 +1,8 @@
 package stack
 
 import (
-	"jvm-by-head-go/ch05/instructions/base"
-	"jvm-by-head-go/ch05/rtda"
+	"jvm-by-head-go/ch06/instructions/base"
+	"jvm-by-head-go/ch06/rtda"
 )
 
 // POP pop指令把栈顶变量弹出

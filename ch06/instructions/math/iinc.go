@@ -1,8 +1,8 @@
 package math
 
 import (
-	"jvm-by-head-go/ch05/instructions/base"
-	"jvm-by-head-go/ch05/rtda"
+	"jvm-by-head-go/ch06/instructions/base"
+	"jvm-by-head-go/ch06/rtda"
 )
 
 // IINC iinc指令给局部变量表中的int变量增加常量值

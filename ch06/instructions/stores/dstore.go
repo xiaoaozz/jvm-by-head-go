@@ -1,8 +1,8 @@
 package stores
 
 import (
-	"jvm-by-head-go/ch05/instructions/base"
-	"jvm-by-head-go/ch05/rtda"
+	"jvm-by-head-go/ch06/instructions/base"
+	"jvm-by-head-go/ch06/rtda"
 )
 
 // DSTORE 存储double类型的指令

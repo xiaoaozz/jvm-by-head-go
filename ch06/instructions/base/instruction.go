@@ -1,7 +1,7 @@
 package base
 
 import (
-	"jvm-by-head-go/ch05/rtda"
+	"jvm-by-head-go/ch06/rtda"
 )
 
 type Instruction interface {

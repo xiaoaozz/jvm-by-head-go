@@ -1,8 +1,8 @@
 package stack
 
 import (
-	"jvm-by-head-go/ch05/instructions/base"
-	"jvm-by-head-go/ch05/rtda"
+	"jvm-by-head-go/ch06/instructions/base"
+	"jvm-by-head-go/ch06/rtda"
 )
 
 // DUP dup指令，复制栈顶一个或者两个数值并将复制值或双份的复制值重新压入栈顶

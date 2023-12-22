@@ -3,7 +3,7 @@ package heap
 import (
 	"fmt"
 	"jvm-by-head-go/ch07/classfile"
-	"jvm-by-head-go/ch07/classspath"
+	"jvm-by-head-go/ch07/classpath"
 )
 
 /*
@@ -16,15 +16,17 @@ class names:
 
 // ClassLoader 类加载器
 type ClassLoader struct {
-	cp       *classspath.Classpath // Classpath指针
-	classMap map[string]*Class     // 记录已经加载的类数据。key是类的完全限定名（可以当作方法区的具体实现）
+	cp          *classpath.Classpath // Classpath指针
+	verboseFlag bool
+	classMap    map[string]*Class // 记录已经加载的类数据。key是类的完全限定名（可以当作方法区的具体实现）
 }
 
 // NewClassLoader 创建类加载器实例
-func NewClassLoader(cp *classspath.Classpath) *ClassLoader {
+func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
 	return &ClassLoader{
-		cp:       cp,
-		classMap: make(map[string]*Class),
+		cp:          cp,
+		verboseFlag: verboseFlag,
+		classMap:    make(map[string]*Class),
 	}
 }
 
@@ -47,12 +49,14 @@ func (self *ClassLoader) loadNonArrayClass(name string) *Class {
 	class := self.defineClass(data)
 	// 3. 链接
 	link(class)
-	fmt.Printf("[Loaded %s from %s]\n", name, entry)
+	if self.verboseFlag {
+		fmt.Printf("[Loaded %s from %s]\n", name, entry)
+	}
 	return class
 }
 
 // readClass 读取类
-func (self *ClassLoader) readClass(name string) ([]byte, classspath.Entry) {
+func (self *ClassLoader) readClass(name string) ([]byte, classpath.Entry) {
 	// 调用ClassPath的ReadClass()方法
 	data, entry, err := self.cp.ReadClass(name)
 	// 进行错误处理
@@ -86,7 +90,7 @@ func parseClass(data []byte) *Class {
 
 // resolveSuperClass 递归调用LoadClass方法加载class的超类
 func resolveSuperClass(class *Class) {
-	if class.name == "java/lang/Object" {
+	if class.name != "java/lang/Object" {
 		class.superClass = class.loader.LoadClass(class.superClassName)
 	}
 }

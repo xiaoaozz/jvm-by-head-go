@@ -8,12 +8,14 @@ import (
 
 // Cmd 命令行结构体
 type Cmd struct {
-	helpFlag    bool     // 获取帮助标志
-	versionFlag bool     // 版本标志
-	XjreOption  string   // 非标准选项-Xjre
-	cpOption    string   // classpath
-	class       string   // 类名
-	args        []string // 参数数组
+	helpFlag         bool     // 获取帮助标志
+	versionFlag      bool     // 版本标志
+	verboseClassFlag bool     // -verbose:class选项，控制是否把类加载信息输出到控制台
+	verboseInstFlag  bool     // -verbose:inst选项，控制是否把指令执行信息输出到控制台
+	XjreOption       string   // 非标准选项-Xjre
+	cpOption         string   // classpath
+	class            string   // 类名
+	args             []string // 参数数组
 }
 
 func parseCmd() *Cmd {

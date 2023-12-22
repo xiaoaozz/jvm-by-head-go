@@ -1,4 +1,4 @@
-package classspath
+package classpath
 
 import (
 	"errors"

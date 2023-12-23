@@ -16,8 +16,12 @@ func (self *GET_STATIC) Execute(frame *rtda.Frame) {
 	field := fieldRef.ResolvedField()
 	class := field.Class()
 
-	// todo 如果声明的字段的类还没有初始化，则需要先进行初始化
-
+	// 如果声明的字段的类还没有初始化，则需要先进行初始化
+	if !class.InitStarted() {
+		frame.RevertNextPC()
+		base.InitClass(frame.Thread(), class)
+		return
+	}
 	// 如果解析后的字段不是静态字段，抛出IncompatibleClassChangeError异常
 	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")

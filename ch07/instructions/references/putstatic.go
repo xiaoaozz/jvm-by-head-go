@@ -26,8 +26,12 @@ func (self *PUT_STATIC) Execute(frame *rtda.Frame) {
 	// 解析字段符号引用
 	field := fieldRef.ResolvedField()
 	class := field.Class()
-	// todo 如果声明字段的类还没有实现，则需要先初始化类
-
+	// 如果声明字段的类还没有实现，则需要先初始化类
+	if !class.InitStarted() {
+		frame.RevertNextPC()
+		base.InitClass(frame.Thread(), class)
+		return
+	}
 	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")
 	}

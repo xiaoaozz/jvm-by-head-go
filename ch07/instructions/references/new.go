@@ -17,7 +17,12 @@ func (self *NEW) Execute(frame *rtda.Frame) {
 	classRef := cp.GetConstant(self.Index).(*heap.ClassRef)
 	// 解析该类符号引用，拿到类数据
 	class := classRef.ResolvedClass()
-	// todo 如果类还没有初始化，则需要先初始化
+	// 如果类还没有初始化，则需要先初始化
+	if !class.InitStarted() {
+		frame.RevertNextPC()
+		base.InitClass(frame.Thread(), class)
+		return
+	}
 	// 接口和抽象类都不能实例化，所以如果解析后的类是接口或者抽象类
 	// 按照Java虚拟机规定，需要抛出InstantiationError异常
 	if class.IsInterface() || class.IsAbstract() {

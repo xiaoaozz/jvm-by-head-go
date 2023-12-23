@@ -1,9 +1,9 @@
 package references
 
 import (
-	"jvm-by-head-go/ch07/instructions/base"
-	"jvm-by-head-go/ch07/rtda"
-	"jvm-by-head-go/ch07/rtda/heap"
+	"jvm-by-head-go/ch08/instructions/base"
+	"jvm-by-head-go/ch08/rtda"
+	"jvm-by-head-go/ch08/rtda/heap"
 )
 
 // NEW new指令，创建类实例

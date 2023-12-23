@@ -1,7 +1,7 @@
 package heap
 
 import (
-	"jvm-by-head-go/ch07/classfile"
+	"jvm-by-head-go/ch08/classfile"
 	"strings"
 )
 
@@ -77,6 +77,9 @@ func (self *Class) Fields() []*Field {
 func (self *Class) Methods() []*Method {
 	return self.methods
 }
+func (self *Class) Loader() *ClassLoader {
+	return self.loader
+}
 func (self *Class) SuperClass() *Class {
 	return self.superClass
 }
@@ -130,7 +133,36 @@ func (self *Class) getStaticMethod(name, descriptor string) *Method {
 	return nil
 }
 
+func (self *Class) isJlObject() bool {
+	return self.name == "java/lang/Object"
+}
+func (self *Class) isJlCloneable() bool {
+	return self.name == "java/lang/Cloneable"
+}
+func (self *Class) isJioSerializable() bool {
+	return self.name == "java/io/Serializable"
+}
+
 // NewObject 初始化实例
 func (self *Class) NewObject() *Object {
 	return newObject(self)
+}
+
+func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
+	for c := self; c != nil; c = c.superClass {
+		for _, field := range c.fields {
+			if field.IsStatic() == isStatic &&
+				field.name == name &&
+				field.descriptor == descriptor {
+
+				return field
+			}
+		}
+	}
+	return nil
+}
+
+func (self *Class) ArrayClass() *Class {
+	arrayClassName := getArrayClassName(self.name)
+	return self.loader.LoadClass(arrayClassName)
 }

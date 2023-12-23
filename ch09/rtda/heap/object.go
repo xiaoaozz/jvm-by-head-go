@@ -3,6 +3,7 @@ package heap
 type Object struct {
 	class *Class
 	data  interface{} // Slots for Object, []int32 for int[] ...
+	extra interface{} // 记录Object结构体实例的额外信息
 }
 
 // create normal (non-array) object
@@ -23,7 +24,12 @@ func (self *Object) Class() *Class {
 func (self *Object) Fields() Slots {
 	return self.data.(Slots)
 }
-
+func (self *Object) Extra() interface{} {
+	return self.extra
+}
+func (self *Object) SetExtra(extra interface{}) {
+	self.extra = extra
+}
 func (self *Object) IsInstanceOf(class *Class) bool {
 	return class.isAssignableFrom(self.class)
 }

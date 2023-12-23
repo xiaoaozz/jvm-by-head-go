@@ -21,6 +21,7 @@ type Class struct {
 	staticSlotCount   uint          // 类变量占据空间大小
 	staticVars        Slots         // 静态变量
 	initStarted       bool          // 标志类是否被初始化
+	jClass            *Object       // java.lang.Class实例
 }
 
 // newClass 将classFile转换成Class结构体
@@ -89,7 +90,9 @@ func (self *Class) StaticVars() Slots {
 func (self *Class) InitStarted() bool {
 	return self.initStarted
 }
-
+func (self *Class) JClass() *Object {
+	return self.jClass
+}
 func (self *Class) StartInit() {
 	self.initStarted = true
 }
@@ -165,4 +168,13 @@ func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
 func (self *Class) ArrayClass() *Class {
 	arrayClassName := getArrayClassName(self.name)
 	return self.loader.LoadClass(arrayClassName)
+}
+
+func (self *Class) JavaName() string {
+	return strings.Replace(self.name, "/", ".", -1)
+}
+
+func (self *Class) IsPrimitive() bool {
+	_, ok := primitiveTypes[self.name]
+	return ok
 }

@@ -23,11 +23,42 @@ type ClassLoader struct {
 
 // NewClassLoader 创建类加载器实例
 func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
-	return &ClassLoader{
+	loader := &ClassLoader{
 		cp:          cp,
 		verboseFlag: verboseFlag,
 		classMap:    make(map[string]*Class),
 	}
+	loader.loadBasicClasses()
+	loader.loadPrimitiveClasses()
+	return loader
+}
+
+func (self *ClassLoader) loadBasicClasses() {
+	jlClassClass := self.LoadClass("java/lang/Class")
+	for _, class := range self.classMap {
+		if class.jClass == nil {
+			class.jClass = jlClassClass.NewObject()
+			class.jClass.extra = class
+		}
+	}
+}
+
+func (self *ClassLoader) loadPrimitiveClasses() {
+	for primitiveType, _ := range primitiveTypes {
+		self.loadPrimitiveClass(primitiveType)
+	}
+}
+
+func (self *ClassLoader) loadPrimitiveClass(className string) {
+	class := &Class{
+		accessFlags: ACC_PUBLIC, // todo
+		name:        className,
+		loader:      self,
+		initStarted: true,
+	}
+	class.jClass = self.classMap["java/lang/Class"].NewObject()
+	class.jClass.extra = class
+	self.classMap[className] = class
 }
 
 // LoadClass 把类数据加载到方法区
@@ -37,11 +68,22 @@ func (self *ClassLoader) LoadClass(name string) *Class {
 		// 如果是，直接返回类数据
 		return class
 	}
+	var class *Class
+
 	if name[0] == '[' {
-		return self.loadArrayClass(name)
+		// 判断是否是数组类型，如果是则调用loadArrayClass加载数组类
+		class = self.loadArrayClass(name)
+	} else {
+		// 否则调用loadNonArrayClass加载类
+		class = self.loadNonArrayClass(name)
 	}
-	// 否则调用loadNonArrayClass加载类
-	return self.loadNonArrayClass(name)
+
+	if jlClassClass, ok := self.classMap["java/lang/Class"]; ok {
+		class.jClass = jlClassClass.NewObject()
+		class.jClass.extra = class
+	}
+
+	return class
 }
 
 // loadNonArrayClass 加载非数组的类（数组类和普通类加载有很大的区别）

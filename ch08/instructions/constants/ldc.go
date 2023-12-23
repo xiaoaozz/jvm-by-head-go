@@ -3,6 +3,7 @@ package constants
 import (
 	"jvm-by-head-go/ch08/instructions/base"
 	"jvm-by-head-go/ch08/rtda"
+	"jvm-by-head-go/ch08/rtda/heap"
 )
 
 // Push item from run-time constant pool
@@ -22,8 +23,8 @@ func (self *LDC_W) Execute(frame *rtda.Frame) {
 func _ldc(frame *rtda.Frame, index uint) {
 	// 先从当前类的运行时常量池中取出常量
 	stack := frame.OperandStack()
-	cp := frame.Method().Class().ConstantPool()
-	c := cp.GetConstant(index)
+	class := frame.Method().Class()
+	c := class.ConstantPool().GetConstant(index)
 
 	switch c.(type) {
 	// 如果是int或者float常量，则提取出常量值，推入操作数栈
@@ -31,7 +32,9 @@ func _ldc(frame *rtda.Frame, index uint) {
 		stack.PushInt(c.(int32))
 	case float32:
 		stack.PushFloat(c.(float32))
-	// case string:
+	case string:
+		internedStr := heap.JString(class.Loader(), c.(string))
+		stack.PushRef(internedStr)
 	// case *heap.ClassRef:
 	// case MethodType, MethodHandle
 	default:
